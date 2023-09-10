@@ -1,501 +1,88 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Chapter 2</title>
-  <script>
-    // Add the shuffleArray function here
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
+{
+  "html": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Quiz App</title>\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n  <div class=\"container\">\n    <div id=\"question-container\">\n      <span id=\"question\"></span>\n    </div>\n    <div id=\"answer-buttons\" class=\"btn-container\">\n    </div>\n    <button id=\"next-button\" class=\"btn\">Next</button>\n  </div>\n  <div id=\"result\"></div>\n  <script src=\"script.js\"></script>\n</body>\n</html>",
+  "css": ".container {\n  text-align: center;\n  margin-top: 50px;\n  font-size: 2em;\n}\n.btn {\n  font-size: 1.5em;\n  padding: 10px 20px;\n  margin: 20px;\n}\n.btn-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n#result {\n  font-size: 2em;\n  margin-top: 20px;\n}",
+  "js": "const questionContainer = document.getElementById('question-container');\nconst answerButtons = document.getElementById('answer-buttons');\nconst nextButton = document.getElementById('next-button');\nconst result = document.getElementById('result');\n\nlet shuffledQuestions, currentQuestionIndex, score = 0;\n\nconst questions = [\n    { question: 'You _____ the patient when you stop providing care without ensuring that the patient continues or begins to receive the same or better care.', answers: ['abandon', 'neglect', 'ignore', 'dismiss'], correct: 'abandon' },
 
-    let score = 0;
-    const correctAnswers = {
-  'q1': 'B',
-  'q2': 'B',
-  'q3': 'B',
-  'q4': 'B',
-  'q5': 'B',
-  'q6': 'B',
-  'q7': 'B',
-  'q8': 'B',
-  'q9': 'A',
-  'q10': 'B',
-  'q11': 'B',
-  'q12': 'A',
-  'q13': 'B',
-  'q14': 'B',
-  'q15': 'A',
-  'q16': 'B',
-  'q17': 'B',
-  'q18': 'C',
-  'q19': 'A',
-  'q20': 'A',
-  'q21': 'D',
-  'q22': 'D',
-  'q23': 'D',
-  'q24': 'D',
-  'q25': 'D',
-  'q26': 'D',
-  'q27': 'D',
-  'q28': 'D',
-  'q29': 'D',
-  'q30': 'D',
-  'q31': 'B',
-  'q32': 'A',
-  'q33': 'A',
-  'q34': 'A',
-  'q35': 'A',
-  'q36': 'B',
-  'q37': 'A',
-  'q38': 'A',
-  'q39': 'A',
-  'q40': 'A',
-  'q41': 'A',
-  'q42': 'A',
-  'q43': 'A',
-  'q44': 'A',
-  'q45': 'A',
-  'q46': 'A',
-  'q47': 'A',
-  'q48': 'A',
-  'q49': 'B',
-  'q50': 'A'
-};
+  { question: '___________ is giving up a right or interest with the intention of never again claiming it.', answers: ['Abandonment', 'Forfeiture', 'Relinquishment', 'Surrender'], correct: 'Abandonment' },
 
-    // Define your questions and answer choices in an array.
-    const questions = [
-      {},
+  { question: 'AED means:', answers: ['automated external defibrillator', 'automated emergency device', 'advanced emergency defibrillator', 'automated electric device'], correct: 'automated external defibrillator' },
 
-    function checkAnswer(question) {
-      const selectedAnswer = document.querySelector(`input[name='${question}']:checked`);
-      if (selectedAnswer && selectedAnswer.value === correctAnswers[question]) {
-        alert('Correct!');
-      } else {
-        alert(`Incorrect. The correct answer is ${correctAnswers[question]}.`);
-      }
-    }
+  { question: 'The ______________ protects a first aid provider from liability for medical care performed in good faith or medical care similar to that expected of another first aid provider with equal training.', answers: ['Good Samaritan Act', 'Healthcare Protection Act', 'First Aid Act', 'Liability Shield Act'], correct: 'Good Samaritan Act' },
 
-    function checkAnswers() {
-      score = 0;
-      for (const [question, correctAnswer] of Object.entries(correctAnswers)) {
-        const selectedAnswer = document.querySelector(`input[name='${question}']:checked`);
-        if (selectedAnswer && selectedAnswer.value === correctAnswer) {
-          score++;
-        }
-      }
-      const percentage = (score / Object.keys(correctAnswers).length) * 100;
-      alert(`Your final score is ${score} out of ${Object.keys(correctAnswers).length}. That's ${percentage}%`);
-    }
-  </script>
-</head>
-<body>
-  <h1>Chapter 2</h1>
+  { question: 'Under the law of negligence, it is “the conduct demanded of a person in a given situation. Typically, this involves a person giving attention to possible dangers, mistakes, and pitfalls, and ways of minimizing those risks.”', answers: ['standard or scope of care', 'duty to act', 'legal obligation', 'reasonable care'], correct: 'standard or scope of care' },
 
-<!-- Question 1 -->
-<p>What does "duty to act" refer to in First Aid?</p>
-<input type='radio' name='q1' value='A'> A. A moral responsibility<br>
-<input type='radio' name='q1' value='B'> B. A contractual or legal obligation to provide care<br>
-<input type='radio' name='q1' value='C'> C. A suggestion<br>
-<input type='radio' name='q1' value='D'> D. A guideline<br>
-<button onclick="checkAnswer('q1')">Check Answer</button>
+  { question: 'Black’s Law Dictionary defines the _____________ as “the degree of care that a reasonable person should exercise.”', answers: ['standard or scope of care', 'duty to act', 'legal obligation', 'reasonable care'], correct: 'standard or scope of care' },
 
-<!-- Question 2 -->
-<p>What does "Breach of duty" mean?</p>
-<input type='radio' name='q2' value='A'> A. Acting appropriately<br>
-<input type='radio' name='q2' value='B'> B. Failing to act or acting inappropriately<br>
-<input type='radio' name='q2' value='C'> C. Exceeding expectations<br>
-<input type='radio' name='q2' value='D'> D. Meeting the standard of care<br>
-<button onclick="checkAnswer('q2')">Check Answer</button>
+  { question: '_________ occurs when you either fail to act or act inappropriately.', answers: ['Breach of duty', 'Negligence', 'Malpractice', 'Misconduct'], correct: 'Breach of duty' },
 
-<!-- Question 3 -->
-<p>What is the "standard or scope of care"?</p>
-<input type='radio' name='q3' value='A'> A. The minimum level of care<br>
-<input type='radio' name='q3' value='B'> B. The degree of care that a reasonable person should exercise<br>
-<input type='radio' name='q3' value='C'> C. The maximum level of care<br>
-<input type='radio' name='q3' value='D'> D. A guideline for care<br>
-<button onclick="checkAnswer('q3')">Check Answer</button>
+  { question: '_________ refers to your contractual or legal obligation to provide care.', answers: ['duty to act', 'legal responsibility', 'moral obligation', 'contractual duty'], correct: 'duty to act' },
 
-<!-- Question 4 -->
-<p>What does AED stand for?</p>
-<input type='radio' name='q4' value='A'> A. Advanced Emergency Device<br>
-<input type='radio' name='q4' value='B'> B. Automated External Defibrillator<br>
-<input type='radio' name='q4' value='C'> C. Automatic Energy Distributor<br>
-<input type='radio' name='q4' value='D'> D. Advanced Energy Device<br>
-<button onclick="checkAnswer('q4')">Check Answer</button>
+  { question: 'According to Black’s Law Dictionary, _________ is “a duty to take some action to prevent harm to another, and for the failure of which one may be liable, depending on the relationship of the parties and the circumstances.”', answers: ['duty to act', 'legal obligation', 'moral duty', 'social responsibility'], correct: 'duty to act' },
 
-<!-- Question 5 -->
-<p>What is "Abandonment" in a medical scenario?</p>
-<input type='radio' name='q5' value='A'> A. Continuing care<br>
-<input type='radio' name='q5' value='B'> B. Giving up a right or interest with the intention of never again claiming it<br>
-<input type='radio' name='q5' value='C'> C. Taking a break<br>
-<input type='radio' name='q5' value='D'> D. Transferring care to another provider<br>
-<button onclick="checkAnswer('q5')">Check Answer</button>
+  { question: 'Determine whether the emergency is life-threatening. As soon as possible, perform an initial assessment to identify and correct _________ problems.', answers: ['Airway, Breathing, and Circulation / ABCs', 'Allergies, Bleeding, and Cuts', 'Anxiety, Breathing, and Consciousness', 'Alignment, Balance, and Coordination'], correct: 'Airway, Breathing, and Circulation / ABCs' },
 
-<!-- Question 6 -->
-<p>What does "Negligence" mean?</p>
-<input type='radio' name='q6' value='A'> A. Exceeding the standard of care<br>
-<input type='radio' name='q6' value='B'> B. The failure to exercise the standard of care that a reasonably prudent person would have exercised<br>
-<input type='radio' name='q6' value='C'> C. Acting appropriately<br>
-<input type='radio' name='q6' value='D'> D. Meeting the standard of care<br>
-<button onclick="checkAnswer('q6')">Check Answer</button>
+  { question: 'CPR means:', answers: ['cardiopulmonary resuscitation', 'central pulse rate', 'cardiac pulse resuscitation', 'central pressure rate'], correct: 'cardiopulmonary resuscitation' },
 
-<!-- Question 7 -->
-<p>What is "Battery" in a medical context?</p>
-<input type='radio' name='q7' value='A'> A. A power source<br>
-<input type='radio' name='q7' value='B'> B. Unlawful physical contact<br>
-<input type='radio' name='q7' value='C'> C. A group of tests<br>
-<input type='radio' name='q7' value='D'> D. A medical procedure<br>
-<button onclick="checkAnswer('q7')">Check Answer</button>
+  { question: 'The _______ has teams of highly skilled people trained to respond to emergencies daily.', answers: ['EMS system', 'Fire Department', 'Police Department', 'Hospital'], correct: 'EMS system' },
 
-<!-- Question 8 -->
-<p>What is "Implied consent"?</p>
-<input type='radio' name='q8' value='A'> A. Explicitly stated consent<br>
-<input type='radio' name='q8' value='B'> B. Consent assumed based on a person's actions<br>
-<input type='radio' name='q8' value='C'> C. Consent given in writing<br>
-<input type='radio' name='q8' value='D'> D. Consent given verbally<br>
-<button onclick="checkAnswer('q8')">Check Answer</button>
+  { question: 'Advanced, specialized training prepares paramedics, ______________ and other responders to provide more comprehensive care than criminal justice officers can provide.', answers: ['emergency medical technicians / EMTs', 'firefighters', 'police officers', 'nurses'], correct: 'emergency medical technicians / EMTs' },
 
-<!-- Question 9 -->
-<p>What is "Expressed consent"?</p>
-<input type='radio' name='q9' value='A'> A. Consent that is clearly and unmistakably stated<br>
-<input type='radio' name='q9' value='B'> B. Consent assumed based on actions<br>
-<input type='radio' name='q9' value='C'> C. Consent given in writing<br>
-<input type='radio' name='q9' value='D'> D. Consent assumed based on a medical emergency<br>
-<button onclick="checkAnswer('q9')">Check Answer</button>
+  { question: 'The _______ system is a network of trained professionals linked to provide advanced, out-of-hospital care for victims of sudden traumatic injury or illness.', answers: ['EMS System', 'Healthcare System', 'Fire Department', 'Police Department'], correct: 'EMS System' },
 
-<!-- Question 10 -->
-<p>What is "Informed consent"?</p>
-<input type='radio' name='q10' value='A'> A. Consent given without full knowledge<br>
-<input type='radio' name='q10' value='B'> B. Consent given with full knowledge of the facts, benefits, risks, and alternatives<br>
-<input type='radio' name='q10' value='C'> C. Consent assumed based on actions<br>
-<input type='radio' name='q10' value='D'> D. Consent given verbally<br>
-<button onclick="checkAnswer('q10')">Check Answer</button>
+  { question: '_________ is a person’s agreement to allow something to happen, such as surgery or an invasive diagnostic procedure, based on a full disclosure of risks, benefits, alternatives, and consequences of refusal.', answers: ['Informed consent', 'Expressed consent', 'Implied consent', 'Verbal consent'], correct: 'Informed consent' },
 
-<!-- Question 11 -->
-<p>What does the peripheral nervous system include?</p>
-<input type='radio' name='q11' value='A'> A. Nerves in the brain<br>
-<input type='radio' name='q11' value='B'> B. Nerves that connect to the spinal cord and branch out to every other part of the body<br>
-<input type='radio' name='q11' value='C'> C. Only the spinal cord<br>
-<input type='radio' name='q11' value='D'> D. Nerves in the heart<br>
-<button onclick="checkAnswer('q11')">Check Answer</button>
+  { question: '_________ is a person’s agreement to allow something to happen, made with full knowledge of the risks involved and the alternatives.', answers: ['Informed consent', 'Expressed consent', 'Implied consent', 'Verbal consent'], correct: 'Informed consent' },
 
-<!-- Question 12 -->
-<p>What is the function of the respiratory system?</p>
-<input type='radio' name='q12' value='A'> A. Delivers oxygen to and removes carbon dioxide from the blood<br>
-<input type='radio' name='q12' value='B'> B. Controls voluntary and involuntary body activity<br>
-<input type='radio' name='q12' value='C'> C. Responsible for reproduction and waste removal<br>
-<input type='radio' name='q12' value='D'> D. Regulates body temperature<br>
-<button onclick="checkAnswer('q12')">Check Answer</button>
+  { question: '_________ is a type of consent in which a patient who is unable to give consent is given treatment under the legal assumption that he or she would want treatment.', answers: ['Informed consent', 'Expressed consent', 'Implied consent', 'Verbal consent'], correct: 'Implied consent' },
 
-<!-- Question 13 -->
-<p>What is the windpipe also known as?</p>
-<input type='radio' name='q13' value='A'> A. Esophagus<br>
-<input type='radio' name='q13' value='B'> B. Trachea<br>
-<input type='radio' name='q13' value='C'> C. Larynx<br>
-<input type='radio' name='q13' value='D'> D. Pharynx<br>
-<button onclick="checkAnswer('q13')">Check Answer</button>
+  { question: '_________ is a type of consent in which a patient gives express authorization for provision of care or transport.', answers: ['Informed consent', 'Expressed consent', 'Implied consent', 'Verbal consent'], correct: 'Expressed consent' },
 
-<!-- Question 14 -->
-<p>What is the epiglottis?</p>
-<input type='radio' name='q14' value='A'> A. A large muscle below the lungs<br>
-<input type='radio' name='q14' value='B'> B. A small leaf-shaped flap that keeps food and other foreign objects from entering the windpipe<br>
-<input type='radio' name='q14' value='C'> C. A part of the brain<br>
-<input type='radio' name='q14' value='D'> D. A bone in the leg<br>
-<button onclick="checkAnswer('q14')">Check Answer</button>
+  { question: '_________ is a legal document, usually a card or a bracelet, that allows a patient to deny resuscitation in the event of serious illness or injury.', answers: ['Do Not Resuscitate / DNR', 'Living Will', 'Medical Directive', 'Healthcare Proxy'], correct: 'Do Not Resuscitate / DNR' },
 
-<!-- Question 15 -->
-<p>What is the diaphragm?</p>
-<input type='radio' name='q15' value='A'> A. A large muscle below the lungs that helps move air in and out<br>
-<input type='radio' name='q15' value='B'> B. A small leaf-shaped flap<br>
-<input type='radio' name='q15' value='C'> C. A part of the brain<br>
-<input type='radio' name='q15' value='D'> D. A bone in the leg<br>
-<button onclick="checkAnswer('q15')">Check Answer</button>
+  { question: '_________ is a federal law that protects the privacy of patient-specific healthcare information and gives the patient control over how this information is used and distributed.', answers: ['HIPAA', 'ACA', 'ADA', 'FERPA'], correct: 'HIPAA' },
 
-<!-- Question 16 -->
-<p>What are involuntary muscles?</p>
-<input type='radio' name='q16' value='A'> A. Muscles used for deliberate acts<br>
-<input type='radio' name='q16' value='B'> B. Muscles that a person does not normally control<br>
-<input type='radio' name='q16' value='C'> C. Muscles found only in the heart<br>
-<input type='radio' name='q16' value='D'> D. Muscles in the arms<br>
-<button onclick="checkAnswer('q16')">Check Answer</button>
+  { question: '_________ is a federal law that protects the privacy of student education records.', answers: ['FERPA', 'HIPAA', 'ACA', 'ADA'], correct: 'FERPA' },
 
-<!-- Question 17 -->
-<p>What are cardiac muscles?</p>
-<input type='radio' name='q17' value='A'> A. Muscles used for deliberate acts<br>
-<input type='radio' name='q17' value='B'> B. Muscles found only in the heart<br>
-<input type='radio' name='q17' value='C'> C. Muscles that a person does not normally control<br>
-<input type='radio' name='q17' value='D'> D. Muscles in the arms<br>
-<button onclick="checkAnswer('q17')">Check Answer</button>
+  { question: '_________ are disease-causing microorganisms carried in the body by blood or body fluids.', answers: ['Bloodborne pathogens', 'Airborne pathogens', 'Waterborne pathogens', 'Foodborne pathogens'], correct: 'Bloodborne pathogens' },
 
-<!-- Question 18 -->
-<p>What does the nervous system control?</p>
-<input type='radio' name='q18' value='A'> A. Only voluntary body activity<br>
-<input type='radio' name='q18' value='B'> B. Only involuntary body activity<br>
-<input type='radio' name='q18' value='C'> C. Both voluntary and involuntary body activity<br>
-<input type='radio' name='q18' value='D'> D. Blood circulation<br>
-<button onclick="checkAnswer('q18')">Check Answer</button>
+  { question: '_________ is a method of infection control in which all human blood and certain human body fluids are treated as if known to be infectious for HIV, HBV, and other bloodborne pathogens.', answers: ['Universal precautions', 'Standard precautions', 'Isolation precautions', 'Contact precautions'], correct: 'Universal precautions' },
 
-<!-- Question 19 -->
-<p>Where is the central nervous system located?</p>
-<input type='radio' name='q19' value='A'> A. In the brain and in the spinal cord<br>
-<input type='radio' name='q19' value='B'> B. Only in the brain<br>
-<input type='radio' name='q19' value='C'> C. Only in the spinal cord<br>
-<input type='radio' name='q19' value='D'> D. In the heart<br>
-<button onclick="checkAnswer('q19')">Check Answer</button>
+  { question: '_________ is a method of infection control that treats all human blood and certain human body fluids as if they were known to be infectious for HIV, HBV, and other bloodborne pathogens.', answers: ['Universal precautions', 'Standard precautions', 'Isolation precautions', 'Contact precautions'], correct: 'Universal precautions' },
 
-<!-- Question 20 -->
-<p>What is the function of the endocrine system?</p>
-<input type='radio' name='q20' value='A'> A. Regulates body systems by secreting hormones directly into the bloodstream<br>
-<input type='radio' name='q20' value='B'> B. Responsible for reproduction and waste removal<br>
-<input type='radio' name='q20' value='C'> C. Delivers oxygen to and removes carbon dioxide from the blood<br>
-<input type='radio' name='q20' value='D'> D. Controls voluntary and involuntary body activity<br>
-<button onclick="checkAnswer('q20')">Check Answer</button>
+  { question: '_________ is a viral disease that affects the liver.', answers: ['Hepatitis', 'Tuberculosis', 'HIV', 'Influenza'], correct: 'Hepatitis' },
 
-<!-- Question 21 -->
-<p>What are the symptoms of shock?</p>
-<input type='radio' name='q21' value='A'> A. Anxiety, restlessness, and fainting<br>
-<input type='radio' name='q21' value='B'> B. Excessive thirst<br>
-<input type='radio' name='q21' value='C'> C. Pale, cool, or moist skin<br>
-<input type='radio' name='q21' value='D'> D. All of the above<br>
-<button onclick="checkAnswer('q21')">Check Answer</button>
+  { question: '_________ is a viral disease that affects the liver and is usually spread by fecal contamination.', answers: ['Hepatitis A', 'Hepatitis B', 'Hepatitis C', 'HIV'], correct: 'Hepatitis A' },
 
-<!-- Question 22 -->
-<p>What are the symptoms of spinal injuries?</p>
-<input type='radio' name='q22' value='A'> A. Constant or intermittent pain in the spinal column<br>
-<input type='radio' name='q22' value='B'> B. Weakness in the legs<br>
-<input type='radio' name='q22' value='C'> C. Tingling, numbness, loss of sensation in extremities<br>
-<input type='radio' name='q22' value='D'> D. All of the above<br>
-<button onclick="checkAnswer('q22')">Check Answer</button>
+  { question: '_________ is a viral disease that affects the liver and is usually spread by blood.', answers: ['Hepatitis A', 'Hepatitis B', 'Hepatitis C', 'HIV'], correct: 'Hepatitis B' },
 
-<!-- Question 23 -->
-<p>What are the symptoms of head trauma?</p>
-<input type='radio' name='q23' value='A'> A. Difficulty staying awake<br>
-<input type='radio' name='q23' value='B'> B. Seizures<br>
-<input type='radio' name='q23' value='C'> C. Difficulty breathing<br>
-<input type='radio' name='q23' value='D'> D. All of the above<br>
-<button onclick="checkAnswer('q23')">Check Answer</button>
+  { question: '_________ is a viral disease that affects the liver and is usually spread by blood transfusion or needle sharing.', answers: ['Hepatitis A', 'Hepatitis B', 'Hepatitis C', 'HIV'], correct: 'Hepatitis C' },
 
-<!-- Question 24 -->
-<p>What are the symptoms of a heart attack?</p>
-<input type='radio' name='q24' value='A'> A. Chest pain<br>
-<input type='radio' name='q24' value='B'> B. Difficulty breathing<br>
-<input type='radio' name='q24' value='C'> C. Nausea / vomiting<br>
-<input type='radio' name='q24' value='D'> D. All of the above<br>
-<button onclick="checkAnswer('q24')">Check Answer</button>
+  { question: '_________ is a viral disease that affects the immune system and is usually spread by sexual contact or needle sharing.', answers: ['Hepatitis A', 'Hepatitis B', 'Hepatitis C', 'HIV'], correct: 'HIV' },
 
-<!-- Question 25 -->
-<p>What are the symptoms of diabetes?</p>
-<input type='radio' name='q25' value='A'> A. Altered mental state<br>
-<input type='radio' name='q25' value='B'> B. Sweet, fruity, or acetone-smelling breath<br>
-<input type='radio' name='q25' value='C'> C. Seizures<br>
-<input type='radio' name='q25' value='D'> D. All of the above<br>
-<button onclick="checkAnswer('q25')">Check Answer</button>
+  { question: '_________ is a bacterial disease that affects the lungs and is usually spread by airborne droplets.', answers: ['Hepatitis', 'Tuberculosis', 'HIV', 'Influenza'], correct: 'Tuberculosis' },
 
-<!-- Question 26 -->
-<p>What are the symptoms of seizures?</p>
-<input type='radio' name='q26' value='A'> A. Head injury<br>
-<input type='radio' name='q26' value='B'> B. Stroke<br>
-<input type='radio' name='q26' value='C'> C. High fever<br>
-<input type='radio' name='q26' value='D'> D. All of the above<br>
-<button onclick="checkAnswer('q26')">Check Answer</button>
+  { question: '_________ is a viral disease that affects the respiratory system and is usually spread by airborne droplets.', answers: ['Hepatitis', 'Tuberculosis', 'HIV', 'Influenza'], correct: 'Influenza' },
 
-<!-- Question 27 -->
-<p>What are the symptoms of hyperthermia?</p>
-<input type='radio' name='q27' value='A'> A. Cramps in legs, arms, or abdominal muscles<br>
-<input type='radio' name='q27' value='B'> B. Altered mental state<br>
-<input type='radio' name='q27' value='C'> C. Seizures<br>
-<input type='radio' name='q27' value='D'> D. All of the above<br>
-<button onclick="checkAnswer('q27')">Check Answer</button>
+  { question: '_________ is a viral disease that affects the respiratory system and is usually spread by airborne droplets.', answers: ['COVID-19', 'Tuberculosis', 'HIV', 'Influenza'], correct: 'COVID-19' },
 
-<!-- Question 28 -->
-<p>What are the symptoms of hypothermia?</p>
-<input type='radio' name='q28' value='A'> A. Shivering<br>
-<input type='radio' name='q28' value='B'> B. Bluish skin<br>
-<input type='radio' name='q28' value='C'> C. Cardiac arrest<br>
-<input type='radio' name='q28' value='D'> D. All of the above<br>
-<button onclick="checkAnswer('q28')">Check Answer</button>
+  { question: 'The _________ system is the body’s framework composed of bones and joints.', answers: ['Skeletal', 'Muscular', 'Nervous', 'Circulatory'], correct: 'Skeletal' },
 
-<!-- Question 29 -->
-<p>What are the symptoms of poisoning?</p>
-<input type='radio' name='q29' value='A'> A. Difficulty breathing<br>
-<input type='radio' name='q29' value='B'> B. Nausea, vomiting, diarrhea<br>
-<input type='radio' name='q29' value='C'> C. Altered mental status<br>
-<input type='radio' name='q29' value='D'> D. All of the above<br>
-<button onclick="checkAnswer('q29')">Check Answer</button>
+  { question: 'The _________ system is composed of muscles that provide body movement, posture, and body heat.', answers: ['Skeletal', 'Muscular', 'Nervous', 'Circulatory'], correct: 'Muscular' },
 
-<!-- Question 30 -->
-<p>What are the symptoms of anaphylactic shock?</p>
-<input type='radio' name='q30' value='A'> A. Warm, tingling feeling in the mouth, face, chest, feet, and hands<br>
-<input type='radio' name='q30' value='B'> B. Itching skin and hives<br>
-<input type='radio' name='q30' value='C'> C. Swollen eyes, hands, and feet<br>
-<input type='radio' name='q30' value='D'> D. All of the above<br>
-<button onclick="checkAnswer('q30')">Check Answer</button>
+  { question: 'The _________ system is the body’s fast, electrochemical communication system.', answers: ['Skeletal', 'Muscular', 'Nervous', 'Circulatory'], correct: 'Nervous' },
 
-<!-- Question 31 -->
-<p>What is the definition of "hyperthermia"?</p>
-<input type='radio' name='q31' value='A'> A. Excessive cooling of the body's core temperature<br>
-<input type='radio' name='q31' value='B'> B. Occurs when the body cannot recover from fluid loss due to a heat-related situation<br>
-<input type='radio' name='q31' value='C'> C. A severe allergic reaction in which air passages swell and restrict breathing<br>
-<input type='radio' name='q31' value='D'> D. A disease that results from the narrowing of airway passages<br>
-<button onclick="checkAnswer('q31')">Check Answer</button>
+  { question: 'The _________ system is the body’s slow messenger system.', answers: ['Endocrine', 'Muscular', 'Nervous', 'Circulatory'], correct: 'Endocrine' },
 
-<!-- Question 32 -->
-<p>What does ICS stand for?</p>
-<input type='radio' name='q32' value='A'> A. Incident Command System<br>
-<input type='radio' name='q32' value='B'> B. Internal Control System<br>
-<input type='radio' name='q32' value='C'> C. Intensive Care Service<br>
-<input type='radio' name='q32' value='D'> D. Infection Control System<br>
-<button onclick="checkAnswer('q32')">Check Answer</button>
+  { question: 'The _________ system is the body’s transportation system for food, oxygen, and waste material.', answers: ['Skeletal', 'Muscular', 'Nervous', 'Circulatory'], correct: 'Circulatory' },
 
-<!-- Question 33 -->
-<p>What is "informed consent"?</p>
-<input type='radio' name='q33' value='A'> A. A person's agreement to allow something to happen, made with full knowledge of the risks involved and the alternatives<br>
-<input type='radio' name='q33' value='B'> B. Consent that is clearly and unmistakably stated<br>
-<input type='radio' name='q33' value='C'> C. Consent given without full understanding of the risks involved<br>
-<input type='radio' name='q33' value='D'> D. A legal document that outlines the terms and conditions for medical treatment<br>
-<button onclick="checkAnswer('q33')">Check Answer</button>
+  { question: 'The _________ system is the body’s system of glands that secrete hormones to regulate body functions.', answers: ['Skeletal', 'Muscular', 'Nervous', 'Endocrine'], correct: 'Endocrine' },
 
-<!-- Question 34 -->
-<p>What is an "inhalation burn"?</p>
-<input type='radio' name='q34' value='A'> A. A burn caused by inhaling hot air or steam<br>
-<input type='radio' name='q34' value='B'> B. Occurs when a patient has a burn to any part of the airway<br>
-<input type='radio' name='q34' value='C'> C. A burn caused by exposure to chemicals<br>
-<input type='radio' name='q34' value='D'> D. A burn that affects only the outer layer of skin<br>
-<button onclick="checkAnswer('q34')">Check Answer</button>
+  { question: 'The _________ system is the body’s system that controls breathing.', answers: ['Skeletal', 'Muscular', 'Respiratory', 'Circulatory'], correct: 'Respiratory' },
 
-<!-- Question 35 -->
-<p>What is "insulin"?</p>
-<input type='radio' name='q35' value='A'> A. A hormone needed to convert sugar, starches, and other food into energy needed for daily life<br>
-<input type='radio' name='q35' value='B'> B. A medication used to treat diabetes<br>
-<input type='radio' name='q35' value='C'> C. A type of sugar found in the blood<br>
-<input type='radio' name='q35' value='D'> D. A protein that helps in digestion<br>
-<button onclick="checkAnswer('q35')">Check Answer</button>
+  { question: 'The _________ system is the body’s system that controls digestion.', answers: ['Skeletal', 'Muscular', 'Digestive', 'Circulatory'], correct: 'Digestive' },
 
-<!-- Question 36 -->
-<p>What are "involuntary muscles"?</p>
-<input type='radio' name='q36' value='A'> A. Muscles used for deliberate acts, such as chewing, lifting, and running<br>
-<input type='radio' name='q36' value='B'> B. Smooth muscles that carry out many automatic body functions<br>
-<input type='radio' name='q36' value='C'> C. Muscles that are under conscious control<br>
-<input type='radio' name='q36' value='D'> D. Muscles that are only found in the heart<br>
-<button onclick="checkAnswer('q36')">Check Answer</button>
+  { question: 'The _________ system is the body’s system that controls reproduction.', answers: ['Skeletal', 'Muscular', 'Reproductive', 'Circulatory'], correct: 'Reproductive' },
 
-<!-- Question 37 -->
-<p>What is "labor" in the context of pregnancy?</p>
-<input type='radio' name='q37' value='A'> A. The final phase of pregnancy; begins the birthing process<br>
-<input type='radio' name='q37' value='B'> B. The period of time when the baby is growing in the womb<br>
-<input type='radio' name='q37' value='C'> C. The process of the baby moving through the birth canal<br>
-<input type='radio' name='q37' value='D'> D. The time when the mother starts feeling contractions<br>
-<button onclick="checkAnswer('q37')">Check Answer</button>
-
-<!-- Question 38 -->
-<p>What is a "laceration"?</p>
-<input type='radio' name='q38' value='A'> A. An open wound in soft tissue<br>
-<input type='radio' name='q38' value='B'> B. A closed injury that appears as a discolored lump<br>
-<input type='radio' name='q38' value='C'> C. A bruise, burn, or mouth injury in an infant<br>
-<input type='radio' name='q38' value='D'> D. A bone break<br>
-<button onclick="checkAnswer('q38')">Check Answer</button>
-
-<!-- Question 39 -->
-<p>What does LOC stand for?</p>
-<input type='radio' name='q39' value='A'> A. Level of Consciousness<br>
-<input type='radio' name='q39' value='B'> B. Loss of Consciousness<br>
-<input type='radio' name='q39' value='C'> C. Level of Care<br>
-<input type='radio' name='q39' value='D'> D. Loss of Control<br>
-<button onclick="checkAnswer('q39')">Check Answer</button>
-
-<!-- Question 40 -->
-<p>What is MCI?</p>
-<input type='radio' name='q40' value='A'> A. Multiple Casualty Incident<br>
-<input type='radio' name='q40' value='B'> B. Major Clinical Issue<br>
-<input type='radio' name='q40' value='C'> C. Medical Care Index<br>
-<input type='radio' name='q40' value='D'> D. Minor Clinical Injury<br>
-<button onclick="checkAnswer('q40')">Check Answer</button>
-
-<!-- Question 41 -->
-<p>What is "mechanism of injury"?</p>
-<input type='radio' name='q41' value='A'> A. The force or forces that caused an injury<br>
-<input type='radio' name='q41' value='B'> B. The process of healing after an injury<br>
-<input type='radio' name='q41' value='C'> C. The initial assessment of an injury<br>
-<input type='radio' name='q41' value='D'> D. The medical treatment for an injury<br>
-<button onclick="checkAnswer('q41')">Check Answer</button>
-
-<!-- Question 42 -->
-<p>What is "negligence"?</p>
-<input type='radio' name='q42' value='A'> A. The failure to provide the same care that a person with similar training would provide<br>
-<input type='radio' name='q42' value='B'> B. The act of providing inappropriate care<br>
-<input type='radio' name='q42' value='C'> C. The act of providing excessive care<br>
-<input type='radio' name='q42' value='D'> D. The act of refusing to provide care<br>
-<button onclick="checkAnswer('q42')">Check Answer</button>
-
-<!-- Question 43 -->
-<p>What is "oxygenation"?</p>
-<input type='radio' name='q43' value='A'> A. The process of delivering oxygen to the blood<br>
-<input type='radio' name='q43' value='B'> B. The process of removing oxygen from the blood<br>
-<input type='radio' name='q43' value='C'> C. The process of measuring the level of oxygen in the blood<br>
-<input type='radio' name='q43' value='D'> D. The process of using oxygen for metabolism<br>
-<button onclick="checkAnswer('q43')">Check Answer</button>
-
-<!-- Question 44 -->
-<p>What is "pathogen"?</p>
-<input type='radio' name='q44' value='A'> A. A microorganism that is capable of causing disease<br>
-<input type='radio' name='q44' value='B'> B. A substance that neutralizes harmful microorganisms<br>
-<input type='radio' name='q44' value='C'> C. A substance that enhances the immune system<br>
-<input type='radio' name='q44' value='D'> D. A microorganism that is beneficial to humans<br>
-<button onclick="checkAnswer('q44')">Check Answer</button>
-
-<!-- Question 45 -->
-<p>What is "recovery position"?</p>
-<input type='radio' name='q45' value='A'> A. A position in which a patient is placed, usually on the left side, to maintain a clear airway<br>
-<input type='radio' name='q45' value='B'> B. A position in which a patient is placed to facilitate CPR<br>
-<input type='radio' name='q45' value='C'> C. A position in which a patient is placed to reduce bleeding<br>
-<input type='radio' name='q45' value='D'> D. A position in which a patient is placed to relieve pain<br>
-<button onclick="checkAnswer('q45')">Check Answer</button>
-
-<!-- Question 46 -->
-<p>What is "respiration"?</p>
-<input type='radio' name='q46' value='A'> A. The act of breathing in and breathing out<br>
-<input type='radio' name='q46' value='B'> B. The act of delivering oxygen to the cells<br>
-<input type='radio' name='q46' value='C'> C. The act of removing carbon dioxide from the body<br>
-<input type='radio' name='q46' value='D'> D. The act of measuring the level of oxygen in the blood<br>
-<button onclick="checkAnswer('q46')">Check Answer</button>
-
-<!-- Question 47 -->
-<p>What is "shock"?</p>
-<input type='radio' name='q47' value='A'> A. A condition in which the circulatory system fails to provide sufficient circulation<br>
-<input type='radio' name='q47' value='B'> B. A sudden and often severe emotional or physical reaction<br>
-<input type='radio' name='q47' value='C'> C. A condition caused by excessive loss of blood<br>
-<input type='radio' name='q47' value='D'> D. A condition caused by an allergic reaction<br>
-<button onclick="checkAnswer('q47')">Check Answer</button>
-
-<!-- Question 48 -->
-<p>What is "stridor"?</p>
-<input type='radio' name='q48' value='A'> A. A high-pitched sound generated from partially obstructed air flow in the upper airway<br>
-<input type='radio' name='q48' value='B'> B. A low-pitched sound generated from obstructed air flow in the lower airway<br>
-<input type='radio' name='q48' value='C'> C. A wheezing sound generated from obstructed air flow in the lungs<br>
-<input type='radio' name='q48' value='D'> D. A crackling sound generated from fluid accumulation in the lungs<br>
-<button onclick="checkAnswer('q48')">Check Answer</button>
-
-<!-- Question 49 -->
-<p>What is "tachycardia"?</p>
-<input type='radio' name='q49' value='A'> A. A slow heart rate<br>
-<input type='radio' name='q49' value='B'> B. A fast heart rate<br>
-<input type='radio' name='q49' value='C'> C. An irregular heart rate<br>
-<input type='radio' name='q49' value='D'> D. A normal heart rate<br>
-<button onclick="checkAnswer('q49')">Check Answer</button>
-
-<!-- Question 50 -->
-<p>What is "venom"?</p>
-<input type='radio' name='q50' value='A'> A. A toxic substance produced by certain animals such as snakes, spiders, and some marine animals<br>
-<input type='radio' name='q50' value='B'> B. A substance that neutralizes toxins<br>
-<input type='radio' name='q50' value='C'> C. A substance that enhances the immune system<br>
-<input type='radio' name='q50' value='D'> D. A substance that is beneficial to humans<br>
-<button onclick="checkAnswer('q50')">Check Answer</button>
-
-<!-- Check Buttons -->
-<button onclick='checkAnswers()'>Check Score</button>
-</body>
-</html>
+  { question: 'The _________ system is the body’s system that controls the body’s defenses against infection.', answers: ['Skeletal', 'Muscular', 'Immune', 'Circulatory'], correct: 'Immune' }
+  \n];\n\nstartGame();\n\nfunction startGame() {\n  score = 0;\n  shuffledQuestions = questions.sort(() => Math.random() - 0.5);\n  currentQuestionIndex = 0;\n  showQuestion(shuffledQuestions[currentQuestionIndex]);\n}\n\nfunction showQuestion(question) {\n  questionContainer.innerText = question.question;\n  answerButtons.innerHTML = '';\n  const shuffledAnswers = question.answers.sort(() => Math.random() - 0.5);\n  shuffledAnswers.forEach(answer => {\n    const button = document.createElement('button');\n    button.innerText = answer;\n    button.classList.add('btn');\n    button.addEventListener('click', () => selectAnswer(question, answer));\n    answerButtons.appendChild(button);\n  });\n}\n\nfunction selectAnswer(question, selectedAnswer) {\n  const correctAnswer = question.correct;\n  if (selectedAnswer === correctAnswer) {\n    score++;\n    document.querySelectorAll('.btn').forEach(btn => btn.style.color = 'red');\n    event.target.style.color = 'green';\n  } else {\n    event.target.style.color = 'red';\n  }\n  document.querySelectorAll('.btn').forEach(btn => btn.disabled = true);\n  nextButton.disabled = false;\n}\n\nnextButton.addEventListener('click', () => {\n  currentQuestionIndex++;\n  if (currentQuestionIndex < shuffledQuestions.length) {\n    showQuestion(shuffledQuestions[currentQuestionIndex]);\n    nextButton.disabled = true;\n  } else {\n    result.innerText = `Score: ${score} out of ${questions.length} (${Math.round((score / questions.length) * 100)}%)`;\n  }\n});"
+}
