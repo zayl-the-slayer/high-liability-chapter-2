@@ -3,6 +3,15 @@
 <head>
   <title>Chapter 2</title>
   <script>
+    // Add the shuffleArray function here
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
     let score = 0;
     const correctAnswers = {
   'q1': 'B',
@@ -56,6 +65,10 @@
   'q49': 'B',
   'q50': 'A'
 };
+
+    // Define your questions and answer choices in an array.
+    const questions = [
+      {},
 
     function checkAnswer(question) {
       const selectedAnswer = document.querySelector(`input[name='${question}']:checked`);
