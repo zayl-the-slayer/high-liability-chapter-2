@@ -4,7 +4,9 @@
   <title>Chapter 2: Unit 1 Multiple Choice Test</title>
   <script>
     let score = 0;
-    const correctAnswers = {};
+    const correctAnswers = {
+'q1': 'B'
+};
 
     function checkAnswer(question) {
       const selectedAnswer = document.querySelector(`input[name='${question}']:checked`);
@@ -33,19 +35,19 @@
 
 <!-- Question 1 -->
 <p>What does "duty to act" refer to in First Aid?</p>
-<input type='radio' name='A' value='A'> A. A moral responsibility<br>
-<input type='radio' name='B' value='B'> B. A contractual or legal obligation to provide care<br>
-<input type='radio' name='C' value='C'> C. A suggestion<br>
-<input type='radio' name='D' value='D'> D. A guideline<br>
-<button onclick="checkAnswer('B')">Check Answer</button>
+<input type='radio' name='q1' value='A'> A. A moral responsibility<br>
+<input type='radio' name='q1' value='B'> B. A contractual or legal obligation to provide care<br>
+<input type='radio' name='q1' value='C'> C. A suggestion<br>
+<input type='radio' name='q1' value='D'> D. A guideline<br>
+<button onclick="checkAnswer('q1')">Check Answer</button>
 
 <!-- Question 2 -->
 <p>What does "Breach of duty" mean?</p>
-<input type='radio' name='A' value='A'> A. Acting appropriately<br>
-<input type='radio' name='B' value='B'> B. Failing to act or acting inappropriately<br>
-<input type='radio' name='C' value='C'> C. Exceeding expectations<br>
-<input type='radio' name='D' value='D'> D. Meeting the standard of care<br>
-<button onclick="checkAnswer('B')">Check Answer</button>
+<input type='radio' name='q2' value='A'> A. Acting appropriately<br>
+<input type='radio' name='q2' value='B'> B. Failing to act or acting inappropriately<br>
+<input type='radio' name='q2' value='C'> C. Exceeding expectations<br>
+<input type='radio' name='q2' value='D'> D. Meeting the standard of care<br>
+<button onclick="checkAnswer('q2')">Check Answer</button>
 
 <!-- Question 3 -->
 <p>What is the "standard or scope of care"?</p>
