@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chapter 2: Unit 1 Multiple Choice Test</title>
+  <script>
+    let score = 0;
+    const correctAnswers = {};
+
+    function checkAnswer(question) {
+      const selectedAnswer = document.querySelector(`input[name='${question}']:checked`);
+      if (selectedAnswer && selectedAnswer.value === correctAnswers[question]) {
+        alert('Correct!');
+      } else {
+        alert(`Incorrect. The correct answer is ${correctAnswers[question]}.`);
+      }
+    }
+
+    function checkAnswers() {
+      score = 0;
+      for (const [question, correctAnswer] of Object.entries(correctAnswers)) {
+        const selectedAnswer = document.querySelector(`input[name='${question}']:checked`);
+        if (selectedAnswer && selectedAnswer.value === correctAnswer) {
+          score++;
+        }
+      }
+      const percentage = (score / Object.keys(correctAnswers).length) * 100;
+      alert(`Your final score is ${score} out of ${Object.keys(correctAnswers).length}. That's ${percentage}%`);
+    }
+  </script>
+</head>
+<body>
+  <h1>Chapter 2: Unit 1 - Preparing to Respond to Emergencies</h1>
+  <!-- Placeholder for Questions 1-30 -->
+  <!-- Example Question -->
+  <p>Example Question: What is the role of a criminal justice officer?</p>
+  <input type='radio' name='example' value='A'> A. Placeholder<br>
+  <input type='radio' name='example' value='B'> B. Placeholder<br>
+  <input type='radio' name='example' value='C'> C. Placeholder<br>
+  <input type='radio' name='example' value='D'> D. Placeholder<br>
+  <button onclick="checkAnswer('example')">Check Answer</button>
+  <!-- More placeholders will go here -->
+  <button onclick='checkAnswers()'>Check Score</button>
+</body>
+</html>
