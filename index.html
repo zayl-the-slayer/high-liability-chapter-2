@@ -1,88 +1,349 @@
-{
-  "html": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Quiz App</title>\n  <link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n  <div class=\"container\">\n    <div id=\"question-container\">\n      <span id=\"question\"></span>\n    </div>\n    <div id=\"answer-buttons\" class=\"btn-container\">\n    </div>\n    <button id=\"next-button\" class=\"btn\">Next</button>\n  </div>\n  <div id=\"result\"></div>\n  <script src=\"script.js\"></script>\n</body>\n</html>",
-  "css": ".container {\n  text-align: center;\n  margin-top: 50px;\n  font-size: 2em;\n}\n.btn {\n  font-size: 1.5em;\n  padding: 10px 20px;\n  margin: 20px;\n}\n.btn-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n#result {\n  font-size: 2em;\n  margin-top: 20px;\n}",
-  "js": "const questionContainer = document.getElementById('question-container');\nconst answerButtons = document.getElementById('answer-buttons');\nconst nextButton = document.getElementById('next-button');\nconst result = document.getElementById('result');\n\nlet shuffledQuestions, currentQuestionIndex, score = 0;\n\nconst questions = [\n    { question: 'You _____ the patient when you stop providing care without ensuring that the patient continues or begins to receive the same or better care.', answers: ['abandon', 'neglect', 'ignore', 'dismiss'], correct: 'abandon' },
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chapter 8</title>
+  <style>
+    body {
+      font-size: 1.5em;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      padding-top: 50px;
+    }
+    .question {
+      margin-bottom: 20px;
+      text-align: left;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .question p, .question button, h1 {
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      margin: 0 auto;
+      display: block;
+    }
+    input[type='radio'] {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chapter 8</h1>
 
-  { question: '___________ is giving up a right or interest with the intention of never again claiming it.', answers: ['Abandonment', 'Forfeiture', 'Relinquishment', 'Surrender'], correct: 'Abandonment' },
+<div class='question' id='question1'>
+  <p>What elements are involved in theft according to Chapter 812, F.S.?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q1' value='A'> Knowingly and unlawfully obtained or used</div>
+    <div><input type='radio' name='q1' value='B'> Did it intentionally to deprive the victim of their right to it or any benefit from it</div>
+    <div><input type='radio' name='q1' value='C'> Took the property for their own use or the use of anyone not entitled to it</div>
+    <div><input type='radio' name='q1' value='D'> All mentioned elements</div>
+  </div>
+  <button onclick="checkAnswer('q1')">Next</button>
+</div>
 
-  { question: 'AED means:', answers: ['automated external defibrillator', 'automated emergency device', 'advanced emergency defibrillator', 'automated electric device'], correct: 'automated external defibrillator' },
+<div class='question' id='question2'>
+  <p>If the value of property stolen during a theft is $100 or more, but less than $750, what offense is it?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q2' value='A'> First-degree misdemeanor of petit theft</div>
+    <div><input type='radio' name='q2' value='B'> Second-degree misdemeanor</div>
+    <div><input type='radio' name='q2' value='C'> Third-degree felony</div>
+    <div><input type='radio' name='q2' value='D'> Grand theft</div>
+  </div>
+  <button onclick="checkAnswer('q2')">Next</button>
+</div>
 
-  { question: 'The ______________ protects a first aid provider from liability for medical care performed in good faith or medical care similar to that expected of another first aid provider with equal training.', answers: ['Good Samaritan Act', 'Healthcare Protection Act', 'First Aid Act', 'Liability Shield Act'], correct: 'Good Samaritan Act' },
+<div class='question' id='question3'>
+  <p>What distinguishes robbery from theft?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q3' value='A'> Robbery involves physical harm to the victim</div>
+    <div><input type='radio' name='q3' value='B'> Robbery is a crime against a person</div>
+    <div><input type='radio' name='q3' value='C'> Robbery involves taking directly from another individual</div>
+    <div><input type='radio' name='q3' value='D'> All mentioned elements</div>
+  </div>
+  <button onclick="checkAnswer('q3')">Next</button>
+</div>
 
-  { question: 'Under the law of negligence, it is “the conduct demanded of a person in a given situation. Typically, this involves a person giving attention to possible dangers, mistakes, and pitfalls, and ways of minimizing those risks.”', answers: ['standard or scope of care', 'duty to act', 'legal obligation', 'reasonable care'], correct: 'standard or scope of care' },
+<div class='question' id='question4'>
+  <p>Theft of property valued at less than $100 is a ________.</p>
+  <div class='answers'>
+    <div><input type='radio' name='q4' value='A'> First-degree misdemeanor</div>
+    <div><input type='radio' name='q4' value='B'> Second-degree misdemeanor</div>
+    <div><input type='radio' name='q4' value='C'> Third-degree felony</div>
+    <div><input type='radio' name='q4' value='D'> Grand theft</div>
+  </div>
+  <button onclick="checkAnswer('q4')">Next</button>
+</div>
 
-  { question: 'Black’s Law Dictionary defines the _____________ as “the degree of care that a reasonable person should exercise.”', answers: ['standard or scope of care', 'duty to act', 'legal obligation', 'reasonable care'], correct: 'standard or scope of care' },
+<div class='question' id='question5'>
+  <p>People commit crimes involving property to interfere with or obtain what from a victim?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q5' value='A'> Money</div>
+    <div><input type='radio' name='q5' value='B'> Property</div>
+    <div><input type='radio' name='q5' value='C'> Other benefits</div>
+    <div><input type='radio' name='q5' value='D'> All mentioned elements</div>
+  </div>
+  <button onclick="checkAnswer('q5')">Next</button>
+</div>
 
-  { question: '_________ occurs when you either fail to act or act inappropriately.', answers: ['Breach of duty', 'Negligence', 'Malpractice', 'Misconduct'], correct: 'Breach of duty' },
+<div class='question' id='question6'>
+  <p>What can the victim provide to help in the investigation of a theft?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q6' value='A'> Description of the stolen property</div>
+    <div><input type='radio' name='q6' value='B'> Value of the item</div>
+    <div><input type='radio' name='q6' value='C'> Last time and place they saw it</div>
+    <div><input type='radio' name='q6' value='D'> All mentioned elements</div>
+  </div>
+  <button onclick="checkAnswer('q6')">Next</button>
+</div>
 
-  { question: '_________ refers to your contractual or legal obligation to provide care.', answers: ['duty to act', 'legal responsibility', 'moral obligation', 'contractual duty'], correct: 'duty to act' },
+<div class='question' id='question7'>
+  <p>If the value of property damaged totals $1,000 or more, the crime is a ________.</p>
+  <div class='answers'>
+    <div><input type='radio' name='q7' value='A'> First-degree misdemeanor</div>
+    <div><input type='radio' name='q7' value='B'> Second-degree misdemeanor</div>
+    <div><input type='radio' name='q7' value='C'> Felony</div>
+    <div><input type='radio' name='q7' value='D'> None of the above</div>
+  </div>
+  <button onclick="checkAnswer('q7')">Next</button>
+</div>
 
-  { question: 'According to Black’s Law Dictionary, _________ is “a duty to take some action to prevent harm to another, and for the failure of which one may be liable, depending on the relationship of the parties and the circumstances.”', answers: ['duty to act', 'legal obligation', 'moral duty', 'social responsibility'], correct: 'duty to act' },
+<div class='question' id='question8'>
+  <p>What does the expression "white-collar crime" refer to?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q8' value='A'> Violent crimes</div>
+    <div><input type='radio' name='q8' value='B'> Property crimes</div>
+    <div><input type='radio' name='q8' value='C'> Financial crimes</div>
+    <div><input type='radio' name='q8' value='D'> Drug-related crimes</div>
+  </div>
+  <button onclick="checkAnswer('q8')">Next</button>
+</div>
 
-  { question: 'Determine whether the emergency is life-threatening. As soon as possible, perform an initial assessment to identify and correct _________ problems.', answers: ['Airway, Breathing, and Circulation / ABCs', 'Allergies, Bleeding, and Cuts', 'Anxiety, Breathing, and Consciousness', 'Alignment, Balance, and Coordination'], correct: 'Airway, Breathing, and Circulation / ABCs' },
+<div class='question' id='question9'>
+  <p>What distinguishes robbery from theft?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q9' value='A'> Robbery is a property crime</div>
+    <div><input type='radio' name='q9' value='B'> Robbery is a crime against a person</div>
+    <div><input type='radio' name='q9' value='C'> Robbery and theft are the same</div>
+    <div><input type='radio' name='q9' value='D'> Robbery involves no direct person-to-person element</div>
+  </div>
+  <button onclick="checkAnswer('q9')">Next</button>
+</div>
 
-  { question: 'CPR means:', answers: ['cardiopulmonary resuscitation', 'central pulse rate', 'cardiac pulse resuscitation', 'central pressure rate'], correct: 'cardiopulmonary resuscitation' },
+<div class='question' id='question10'>
+  <p>Theft of property valued at less than $100 is a ________.</p>
+  <div class='answers'>
+    <div><input type='radio' name='q10' value='A'> First-degree misdemeanor</div>
+    <div><input type='radio' name='q10' value='B'> Second-degree misdemeanor</div>
+    <div><input type='radio' name='q10' value='C'> Third-degree felony</div>
+    <div><input type='radio' name='q10' value='D'> Grand theft</div>
+  </div>
+  <button onclick="checkAnswer('q10')">Next</button>
+</div>
 
-  { question: 'The _______ has teams of highly skilled people trained to respond to emergencies daily.', answers: ['EMS system', 'Fire Department', 'Police Department', 'Hospital'], correct: 'EMS system' },
+<div class='question' id='question11'>
+  <p>What type of theft is considered when the suspect resists reasonable efforts to recover the property?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q11' value='A'> Robbery</div>
+    <div><input type='radio' name='q11' value='B'> Grand theft</div>
+    <div><input type='radio' name='q11' value='C'> Petit theft</div>
+    <div><input type='radio' name='q11' value='D'> Fraud</div>
+  </div>
+  <button onclick="checkAnswer('q11')">Next</button>
+</div>
 
-  { question: 'Advanced, specialized training prepares paramedics, ______________ and other responders to provide more comprehensive care than criminal justice officers can provide.', answers: ['emergency medical technicians / EMTs', 'firefighters', 'police officers', 'nurses'], correct: 'emergency medical technicians / EMTs' },
+<div class='question' id='question12'>
+  <p>Florida law reclassifies theft to a higher degree if the victim is a person of what age?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q12' value='A'> 50 or older</div>
+    <div><input type='radio' name='q12' value='B'> 60 or older</div>
+    <div><input type='radio' name='q12' value='C'> 65 or older</div>
+    <div><input type='radio' name='q12' value='D'> 70 or older</div>
+  </div>
+  <button onclick="checkAnswer('q12')">Next</button>
+</div>
 
-  { question: 'The _______ system is a network of trained professionals linked to provide advanced, out-of-hospital care for victims of sudden traumatic injury or illness.', answers: ['EMS System', 'Healthcare System', 'Fire Department', 'Police Department'], correct: 'EMS System' },
+<div class='question' id='question13'>
+  <p>What is the primary result of theft?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q13' value='A'> Physical harm to the victim</div>
+    <div><input type='radio' name='q13' value='B'> Deprivation of property use or enjoyment</div>
+    <div><input type='radio' name='q13' value='C'> Financial loss to the victim</div>
+    <div><input type='radio' name='q13' value='D'> Mental harm to the victim</div>
+  </div>
+  <button onclick="checkAnswer('q13')">Next</button>
+</div>
 
-  { question: '_________ is a person’s agreement to allow something to happen, such as surgery or an invasive diagnostic procedure, based on a full disclosure of risks, benefits, alternatives, and consequences of refusal.', answers: ['Informed consent', 'Expressed consent', 'Implied consent', 'Verbal consent'], correct: 'Informed consent' },
+<div class='question' id='question14'>
+  <p>What is the intentional falsification of the truth to induce another person or other entity to part with something of value or to surrender their legal right to it called?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q14' value='A'> Robbery</div>
+    <div><input type='radio' name='q14' value='B'> Theft</div>
+    <div><input type='radio' name='q14' value='C'> Fraud</div>
+    <div><input type='radio' name='q14' value='D'> Forgery</div>
+  </div>
+  <button onclick="checkAnswer('q14')">Next</button>
+</div>
 
-  { question: '_________ is a person’s agreement to allow something to happen, made with full knowledge of the risks involved and the alternatives.', answers: ['Informed consent', 'Expressed consent', 'Implied consent', 'Verbal consent'], correct: 'Informed consent' },
+<div class='question' id='question15'>
+  <p>What does "duty to act" refer to in First Aid?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q15' value='A'> A moral responsibility</div>
+    <div><input type='radio' name='q15' value='B'> A contractual or legal obligation to provide care</div>
+    <div><input type='radio' name='q15' value='C'> A suggestion</div>
+    <div><input type='radio' name='q15' value='D'> A guideline</div>
+  </div>
+  <button onclick="checkAnswer('q15')">Next</button>
+</div>
 
-  { question: '_________ is a type of consent in which a patient who is unable to give consent is given treatment under the legal assumption that he or she would want treatment.', answers: ['Informed consent', 'Expressed consent', 'Implied consent', 'Verbal consent'], correct: 'Implied consent' },
+<div class='question' id='question16'>
+  <p>What are the elements of fighting or baiting animals?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q16' value='A'> Intentional harm to animals</div>
+    <div><input type='radio' name='q16' value='B'> Encouragement or betting on animals fighting</div>
+    <div><input type='radio' name='q16' value='C'> Animal cruelty</div>
+    <div><input type='radio' name='q16' value='D'> Animal abuse</div>
+  </div>
+  <button onclick="checkAnswer('q16')">Next</button>
+</div>
 
-  { question: '_________ is a type of consent in which a patient gives express authorization for provision of care or transport.', answers: ['Informed consent', 'Expressed consent', 'Implied consent', 'Verbal consent'], correct: 'Expressed consent' },
+<div class='question' id='question17'>
+  <p>What should you do if the suspect becomes belligerent or violent during a theft response?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q17' value='A'> Call for backup</div>
+    <div><input type='radio' name='q17' value='B'> Attempt to de-escalate the situation</div>
+    <div><input type='radio' name='q17' value='C'> Obtain a receipt for stolen property</div>
+    <div><input type='radio' name='q17' value='D'> Photograph the items</div>
+  </div>
+  <button onclick="checkAnswer('q17')">Next</button>
+</div>
 
-  { question: '_________ is a legal document, usually a card or a bracelet, that allows a patient to deny resuscitation in the event of serious illness or injury.', answers: ['Do Not Resuscitate / DNR', 'Living Will', 'Medical Directive', 'Healthcare Proxy'], correct: 'Do Not Resuscitate / DNR' },
+<div class='question' id='question18'>
+  <p>What is the purpose of notifying your supervisor during a theft response?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q18' value='A'> To inform them of any witnesses</div>
+    <div><input type='radio' name='q18' value='B'> To request more resources</div>
+    <div><input type='radio' name='q18' value='C'> To take a suspect statement</div>
+    <div><input type='radio' name='q18' value='D'> To review surveillance videos</div>
+  </div>
+  <button onclick="checkAnswer('q18')">Next</button>
+</div>
 
-  { question: '_________ is a federal law that protects the privacy of patient-specific healthcare information and gives the patient control over how this information is used and distributed.', answers: ['HIPAA', 'ACA', 'ADA', 'FERPA'], correct: 'HIPAA' },
+<div class='question' id='question19'>
+  <p>What is the primary result of crimes involving property, according to the text?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q19' value='A'> Physical harm to the victim</div>
+    <div><input type='radio' name='q19' value='B'> Mental harm to the victim</div>
+    <div><input type='radio' name='q19' value='C'> Deprivation of the use or enjoyment of property</div>
+    <div><input type='radio' name='q19' value='D'> Financial gain for the suspect</div>
+  </div>
+  <button onclick="checkAnswer('q19')">Next</button>
+</div>
 
-  { question: '_________ is a federal law that protects the privacy of student education records.', answers: ['FERPA', 'HIPAA', 'ACA', 'ADA'], correct: 'FERPA' },
+<div class='question' id='question20'>
+  <p>What crime involves someone working alone or conspiring with others to transfer merchandise from one container to another with the intention of depriving the merchant of the items or their full retail value?</p>
+  <div class='answers'>
+    <div><input type='radio' name='q20' value='A'> Embezzlement</div>
+    <div><input type='radio' name='q20' value='B'> Shoplifting</div>
+    <div><input type='radio' name='q20' value='C'> Skimming</div>
+    <div><input type='radio' name='q20' value='D'> Hijacking</div>
+  </div>
+  <button onclick="checkAnswer('q20')">Next</button>
+</div>
 
-  { question: '_________ are disease-causing microorganisms carried in the body by blood or body fluids.', answers: ['Bloodborne pathogens', 'Airborne pathogens', 'Waterborne pathogens', 'Foodborne pathogens'], correct: 'Bloodborne pathogens' },
+  <script>
+    let score = 0;
+    let currentQuestion = 0;
+    const correctAnswers = {
+      'q1': 'D',
+      'q2': 'A',
+      'q3': 'D',
+      'q4': 'B',
+      'q5': 'D',
+      'q6': 'D',
+      'q7': 'C',
+      'q8': 'C',
+      'q9': 'B',
+      'q10': 'B',
+      'q11': 'A',
+      'q12': 'C',
+      'q13': 'C',
+      'q14': 'A',
+      'q15': 'C',
+      'q16': 'B',
+      'q17': 'C',
+      'q18': 'B',
+      'q19': 'C',
+      'q20': 'B',
+    };
 
-  { question: '_________ is a method of infection control in which all human blood and certain human body fluids are treated as if known to be infectious for HIV, HBV, and other bloodborne pathogens.', answers: ['Universal precautions', 'Standard precautions', 'Isolation precautions', 'Contact precautions'], correct: 'Universal precautions' },
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
 
-  { question: '_________ is a method of infection control that treats all human blood and certain human body fluids as if they were known to be infectious for HIV, HBV, and other bloodborne pathogens.', answers: ['Universal precautions', 'Standard precautions', 'Isolation precautions', 'Contact precautions'], correct: 'Universal precautions' },
+    function shuffleQuestionsAndAnswers() {
+      const questions = Array.from(document.querySelectorAll('.question'));
+      shuffleArray(questions);
+      const questionsContainer = document.body;
+      questions.forEach(question => questionsContainer.appendChild(question));
 
-  { question: '_________ is a viral disease that affects the liver.', answers: ['Hepatitis', 'Tuberculosis', 'HIV', 'Influenza'], correct: 'Hepatitis' },
+      questions.forEach(question => {
+        const answers = Array.from(question.querySelectorAll('.answers div'));
+        shuffleArray(answers);
+        const answersContainer = question.querySelector('.answers');
+        answers.forEach(answer => answersContainer.appendChild(answer));
+      });
+    }
 
-  { question: '_________ is a viral disease that affects the liver and is usually spread by fecal contamination.', answers: ['Hepatitis A', 'Hepatitis B', 'Hepatitis C', 'HIV'], correct: 'Hepatitis A' },
+    function showQuestion(questionNumber) {
+      document.querySelectorAll('.question').forEach((el) => {
+        el.style.display = 'none';
+      });
+      document.querySelectorAll('.question')[questionNumber].style.display = 'block';
+    }
 
-  { question: '_________ is a viral disease that affects the liver and is usually spread by blood.', answers: ['Hepatitis A', 'Hepatitis B', 'Hepatitis C', 'HIV'], correct: 'Hepatitis B' },
+    function checkAnswer(question) {
+      const selectedAnswer = document.querySelector(`input[name='${question}']:checked`);
+      if (selectedAnswer && selectedAnswer.value === correctAnswers[question]) {
+        alert('Correct!');
+      } else {
+        alert(`Incorrect. The correct answer is ${correctAnswers[question]}.`);
+      }
+      currentQuestion++;
+      if (currentQuestion < document.querySelectorAll('.question').length) {
+        showQuestion(currentQuestion);
+      } else {
+        checkFinalScore();
+      }
+    }
 
-  { question: '_________ is a viral disease that affects the liver and is usually spread by blood transfusion or needle sharing.', answers: ['Hepatitis A', 'Hepatitis B', 'Hepatitis C', 'HIV'], correct: 'Hepatitis C' },
+    function checkFinalScore() {
+      score = 0;
+      for (const [question, correctAnswer] of Object.entries(correctAnswers)) {
+        const selectedAnswer = document.querySelector(`input[name='${question}']:checked`);
+        if (selectedAnswer && selectedAnswer.value === correctAnswer) {
+          score++;
+        }
+      }
+      const percentage = (score / Object.keys(correctAnswers).length) * 100;
+      alert(`Your final score is ${score} out of ${Object.keys(correctAnswers).length}. That's ${percentage}%`);
+    }
 
-  { question: '_________ is a viral disease that affects the immune system and is usually spread by sexual contact or needle sharing.', answers: ['Hepatitis A', 'Hepatitis B', 'Hepatitis C', 'HIV'], correct: 'HIV' },
-
-  { question: '_________ is a bacterial disease that affects the lungs and is usually spread by airborne droplets.', answers: ['Hepatitis', 'Tuberculosis', 'HIV', 'Influenza'], correct: 'Tuberculosis' },
-
-  { question: '_________ is a viral disease that affects the respiratory system and is usually spread by airborne droplets.', answers: ['Hepatitis', 'Tuberculosis', 'HIV', 'Influenza'], correct: 'Influenza' },
-
-  { question: '_________ is a viral disease that affects the respiratory system and is usually spread by airborne droplets.', answers: ['COVID-19', 'Tuberculosis', 'HIV', 'Influenza'], correct: 'COVID-19' },
-
-  { question: 'The _________ system is the body’s framework composed of bones and joints.', answers: ['Skeletal', 'Muscular', 'Nervous', 'Circulatory'], correct: 'Skeletal' },
-
-  { question: 'The _________ system is composed of muscles that provide body movement, posture, and body heat.', answers: ['Skeletal', 'Muscular', 'Nervous', 'Circulatory'], correct: 'Muscular' },
-
-  { question: 'The _________ system is the body’s fast, electrochemical communication system.', answers: ['Skeletal', 'Muscular', 'Nervous', 'Circulatory'], correct: 'Nervous' },
-
-  { question: 'The _________ system is the body’s slow messenger system.', answers: ['Endocrine', 'Muscular', 'Nervous', 'Circulatory'], correct: 'Endocrine' },
-
-  { question: 'The _________ system is the body’s transportation system for food, oxygen, and waste material.', answers: ['Skeletal', 'Muscular', 'Nervous', 'Circulatory'], correct: 'Circulatory' },
-
-  { question: 'The _________ system is the body’s system of glands that secrete hormones to regulate body functions.', answers: ['Skeletal', 'Muscular', 'Nervous', 'Endocrine'], correct: 'Endocrine' },
-
-  { question: 'The _________ system is the body’s system that controls breathing.', answers: ['Skeletal', 'Muscular', 'Respiratory', 'Circulatory'], correct: 'Respiratory' },
-
-  { question: 'The _________ system is the body’s system that controls digestion.', answers: ['Skeletal', 'Muscular', 'Digestive', 'Circulatory'], correct: 'Digestive' },
-
-  { question: 'The _________ system is the body’s system that controls reproduction.', answers: ['Skeletal', 'Muscular', 'Reproductive', 'Circulatory'], correct: 'Reproductive' },
-
-  { question: 'The _________ system is the body’s system that controls the body’s defenses against infection.', answers: ['Skeletal', 'Muscular', 'Immune', 'Circulatory'], correct: 'Immune' }
-  \n];\n\nstartGame();\n\nfunction startGame() {\n  score = 0;\n  shuffledQuestions = questions.sort(() => Math.random() - 0.5);\n  currentQuestionIndex = 0;\n  showQuestion(shuffledQuestions[currentQuestionIndex]);\n}\n\nfunction showQuestion(question) {\n  questionContainer.innerText = question.question;\n  answerButtons.innerHTML = '';\n  const shuffledAnswers = question.answers.sort(() => Math.random() - 0.5);\n  shuffledAnswers.forEach(answer => {\n    const button = document.createElement('button');\n    button.innerText = answer;\n    button.classList.add('btn');\n    button.addEventListener('click', () => selectAnswer(question, answer));\n    answerButtons.appendChild(button);\n  });\n}\n\nfunction selectAnswer(question, selectedAnswer) {\n  const correctAnswer = question.correct;\n  if (selectedAnswer === correctAnswer) {\n    score++;\n    document.querySelectorAll('.btn').forEach(btn => btn.style.color = 'red');\n    event.target.style.color = 'green';\n  } else {\n    event.target.style.color = 'red';\n  }\n  document.querySelectorAll('.btn').forEach(btn => btn.disabled = true);\n  nextButton.disabled = false;\n}\n\nnextButton.addEventListener('click', () => {\n  currentQuestionIndex++;\n  if (currentQuestionIndex < shuffledQuestions.length) {\n    showQuestion(shuffledQuestions[currentQuestionIndex]);\n    nextButton.disabled = true;\n  } else {\n    result.innerText = `Score: ${score} out of ${questions.length} (${Math.round((score / questions.length) * 100)}%)`;\n  }\n});"
-}
+    document.addEventListener('DOMContentLoaded', function() {
+      shuffleQuestionsAndAnswers();
+      showQuestion(currentQuestion);
+    });
+  </script>
+</body>
+</html>
